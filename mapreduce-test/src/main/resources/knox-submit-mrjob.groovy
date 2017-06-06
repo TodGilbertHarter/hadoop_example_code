@@ -4,7 +4,7 @@ println Hdfs.mkdir(hadoop).dir("/tmp/guest").now().string
 println Hdfs.mkdir(hadoop).dir("/tmp/guest/input").now().string
 println Hdfs.put(hadoop).file("/home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/src/test/resources/input/itinerary.txt").to('/tmp/guest/input/itinerary.txt').now().string
 println Hdfs.mkdir(hadoop).dir("/tmp/guest/jar").now().string
-println Hdfs.put(hadoop).file("/home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test.jar").to("/tmp/guest/jar/mapreduce-test.jar").now().string
+println Hdfs.put(hadoop).file("/home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test-0.1-SNAPSHOT.jar").to("/tmp/guest/jar/mapreduce-test.jar").now().string
 println Hdfs.mkdir(hadoop).dir("/tmp/guest/lib").now().string
 ldir = new File("/home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/lib")
 ldir.eachFile() {

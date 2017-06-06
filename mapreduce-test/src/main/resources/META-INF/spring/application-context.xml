@@ -90,7 +90,7 @@
 	     input-path="${wordcount.input.path}" 
 	     output-path="${wordcount.output.path}"
          libs="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/lib/*"
-	     jar="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test.jar"
+	     jar="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test-0.1-SNAPSHOT.jar"
 		 mapper="com.giantelectronicbrain.hadoop.mapreduce.HdfsFileMapper"
 		 reducer="com.giantelectronicbrain.hadoop.mapreduce.HdfsFileReducer"/>
 		 
@@ -98,7 +98,7 @@
 	     input-path="${wordcount.input.path}" 
 	     output-path="${extra.output.path}"
 	     libs="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/lib/*"
-	     jar="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test.jar"
+	     jar="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test-0.1-SNAPSHOT.jar"
 		 mapper="com.giantelectronicbrain.hadoop.mapreduce.HdfsFileMapper"
 		 reducer="com.giantelectronicbrain.hadoop.hbase.HBaseWordReducer"/>
 		 
@@ -106,7 +106,7 @@
 	     input-path="${wordcount.input.path}" 
 	     output-path="${extra.output.path}"
 	     libs="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/lib/*"
-	     jar="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test.jar"
+	     jar="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test-0.1-SNAPSHOT.jar"
 		 mapper="com.giantelectronicbrain.hadoop.mapreduce.HdfsFileMapper"
 		 reducer="com.giantelectronicbrain.hadoop.hive.HiveWordReducer"/>
 
@@ -114,7 +114,7 @@
 	     input-path="${wordcount.input.path}" 
 	     output-path="${extra.output.path}"
 	     libs="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/lib/*"
-	     jar="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test.jar"
+	     jar="file:///home/oracle/git/AIMS_infosys_code_share/hadoop_example_code/mapreduce-test/build/libs/mapreduce-test-0.1-SNAPSHOT.jar"
 		 mapper="com.giantelectronicbrain.hadoop.mapreduce.HdfsFileMapper"
 		 reducer="com.giantelectronicbrain.hadoop.springrepo.JpaWordReducer"/>
 		 
