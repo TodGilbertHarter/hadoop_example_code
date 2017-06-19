@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="stylesheets/bootstrap.min.css"/>
+		<title>Hadoop Secure Demo UI</title>
+		<script src="scripts/react.js"></script>
+		<script src="scripts/react-dom.js"></script>
+		<script src="scripts/react-bootstrap.min.js"></script>
+		<script src="scripts/babel.min.js"></script>
+		<script type='text/babel'>
+			class Root extends React.Component {
+				constructor() {
+					super();
+					this.firstTime = true;
+					this.state = {
+						files: "directory listing",
+						username: 'guest',
+						password: 'guest-password',
+						dir: '/tmp',
+					};
+				}
+
+				render() {
+					return (<div className='panel panel-default'>
+						<div className='panel-heading'>Knox Test UI</div>
+						<div className='panel-body'>
+							<div className='row'>
+								<UserForm/>
+							</div>
+							<div className='row'>
+								<div className='well'>
+									<div className='form-group'>
+										<label htmlFor="hdfspath">HDFS Directory</label>
+										<input type='text' className="form-control" defaultValue='/tmp' name='hdfspath' id='hdfspath' onChange={this.getHDFSDir()}/>
+									</div>
+									<HDFSDir value={this.state.files}/>
+								</div>
+								<a href="https://localhost:8443/gateway/sandbox/mrtest/hadoop/sync/hadoop%20jar%20../mapreduce-test/build/libs/mapreduce-test-0.1-SNAPSHOT.jar%20com.giantelectronicbrain.hadoop.mapreduce.Driver">Map Reduce via Knox</a>
+							</div>
+						</div>
+					</div>);
+				}
+
+				getHDFSDir() {
+					if(this.firstTime == true) { this.firstTime = false; return }
+					var self = this;
+					var headers = new Headers();
+					headers.append("Authorization","Basic " + btoa(this.state.username+":"+this.state.password));
+					var rinit = { method: "GET", headers: headers };
+					var myRequest = new Request("https://localhost:8443/gateway/sandbox/webhdfs/v1"+this.state.dir+"?op=LISTSTATUS",rinit);
+
+					fetch(myRequest).then(function(response) {
+						return response.text();
+					}).then( function(json) {
+						console.log(json);
+						self.setState({ username: self.state.username, password: self.state.password, dir: self.state.dir, files: json});
+					}).catch(function(err) {
+						console.log("got an error "+err);
+					});
+				}
+			}
+
+			class HDFSDir extends React.Component {
+				
+				renderDirs() {
+					var output = "";
+					var x;
+					for(x in this.props.files) {
+						output += x;
+					}
+					return output;
+				}
+
+				render() {
+					return (
+						<div className='alert alert-info'>
+							{this.renderDirs()}
+						</div>
+					);
+				}
+
+			}
+
+			class UserForm extends React.Component {
+				render() {
+					return (
+						<div className="form-group">
+							<div className='input-group'>
+								<label htmlFor='username'>User Name</label>
+								<input type='text' defaultValue='' name='username' id='username'/>
+							</div>
+							<div className='input-group'>
+								<label htmlFor='password'>Password</label>
+								<input type='text' defaultValue='' name='password' id='password'/>
+							</div>
+						</div>
+					);
+				}
+			}
+
+/*			function getHDFSDir(theDir,username,password) {
+				var headers = new Headers();
+				headers.append('Authorization','Basic ' + btoa(username+":"+password));
+				var rinit = { method: 'GET', headers: headers };
+				var myRequest = new Request('https://localhost:8443/gateway/sandbox/webhdfs/v1'+theDir+'?op=LISTSTATUS',rinit);
+
+				fetch(myRequest).then(function(response) {
+					return response.json();
+				}).then( function(json) {
+					console.log(json);
+				}).catch(function(err) {
+					console.log("got an error "+err);
+				});
+			} */
+
+			function readyCode() {
+				ReactDOM.render(<Root/>,document.getElementById('container'));
+//				document.getElementById('hdfspath').onchange = function(e) { 
+//					var username = document.getElementById('username').value;
+//					var password = document.getElementById('password').value;
+//					getHDFSDir(this.value,username,password);
+//				};
+			}
+
+			if(document.readyState !== 'loading') {
+				readyCode();
+			} else {
+				document.addEventListener("DOMContentLoaded", function(event) {
+					readyCode();
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div id='container' class='container'></div>
+	</body>
+</html>
