@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Trying to get HDFS directory listing for /user/guest as user 'sam/sam-password' -- This will be denied!"
+echo "Getting directory listing for /user/guest HDFS directory as 'sam/sam-password'. Operation should fail!"
 echo
-curl -i -k -s -u sam:sam-password 'https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest?op=LISTSTATUS'
+java -jar /usr/hdp/current/knox-server/bin/shell.jar knox-hdfs-forbidden.groovy
 

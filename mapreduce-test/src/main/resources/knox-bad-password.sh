@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "trying to login as guest/baddpass - this will fail!"
+echo "trying to login as guest/bad-password - this will fail!"
 echo
-curl -i -k -s -u guest:baddpass 'https://localhost:8443/gateway/knox_sample/webhdfs/v1?op=LISTSTATUS'
+java -jar /usr/hdp/current/knox-server/bin/shell.jar knox-bad-password.groovy
 
