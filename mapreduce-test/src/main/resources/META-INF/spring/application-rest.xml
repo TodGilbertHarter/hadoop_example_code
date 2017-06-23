@@ -150,20 +150,16 @@
  	</script>
  	
 	<job-runner id="runner" run-at-startup="false"
-	    	    pre-action="setupScript"
 			    job-ref="wordcountJob"
- 			    post-action="catScript"/>
+ 			    />
 			    
 	<job-runner id="hbaseRunner" run-at-startup="false"
-	    	    pre-action="setupScript"
 			    job-ref="hbaseWordcountJob" />	  
 
 	<job-runner id="hiveRunner" run-at-startup="false"
-	    	    pre-action="setupScript"
 			    job-ref="hiveWordcountJob" />	  
 			    
 	<job-runner id="jpaRunner" run-at-startup="false"
-	    	    pre-action="setupScript"
 			    job-ref="jpaWordcountJob" />	  
 	
 </beans:beans>
