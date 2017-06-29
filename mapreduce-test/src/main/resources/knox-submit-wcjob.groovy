@@ -6,8 +6,8 @@ import org.apache.hadoop.gateway.shell.job.Job
 import static java.util.concurrent.TimeUnit.SECONDS
  
 gateway = "https://sandbox.hortonworks.com:8443/gateway/knox_sample"
-username = "guest"
-password = "guest-foo"
+username = "hdfsrwuser"
+password = "hdfsrwuser"
 dataFile = "../../test/resources/input/itinerary.txt"
 
 jarFile = "/usr/hdp/2.6.0.3-8/knox/samples/hadoop-examples.jar"
