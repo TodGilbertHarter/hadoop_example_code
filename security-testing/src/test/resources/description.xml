@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<securitytest>
+	<subjects>
+		<groups>
+			<group id='group-1' name='group1'/>
+			<group id='group-2' name='group2'/>
+		</groups>
+		<users>
+			<user id='user-1' name='user1'>
+				<groups>
+					<group ref='group-1'/>
+				</groups>
+			</user>
+		</users>
+	</subjects>
+	<resources>
+		<resource class='hdfsdir' id='hdfs-1' name='/user/guest'/>
+	</resources>
+	<actions>
+		<action class='hdfsdir' name='read'/>
+		<action class='hdfsdir' name='write'/>
+		<action class='hdfsdir' name='execute'/>
+	</actions>
+	<rules>
+		<rule id='rule-1' resourceid='hdfs-1'>
+			<subjects>
+				<subject subjectid='group-1'/>
+			</subjects>
+			<actions>
+				<action ref='hdfsdir_read'/>
+			</actions>
+		</rule>
+	</rules>
+</securitytest>
