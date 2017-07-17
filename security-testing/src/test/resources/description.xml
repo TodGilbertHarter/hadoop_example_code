@@ -6,7 +6,7 @@
 			<group id='group-2' name='group2'/>
 		</groups>
 		<users>
-			<user id='user-1' name='user1'>
+			<user id='user-1' name='user1' credential1='guest' credential2='guest-password'>
 				<groups>
 					<group ref='group-1'/>
 				</groups>

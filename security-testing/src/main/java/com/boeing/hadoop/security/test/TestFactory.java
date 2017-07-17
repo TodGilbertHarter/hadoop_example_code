@@ -7,8 +7,7 @@ package com.boeing.hadoop.security.test;
  * @author tharter
  *
  */
-public abstract class TestFactory {
-
+public abstract class TestFactory {	
 	/**
 	 * 
 	 */

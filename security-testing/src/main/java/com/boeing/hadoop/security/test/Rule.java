@@ -12,6 +12,7 @@ import java.util.stream.Stream;
  *
  */
 public class Rule {
+	private final TestMatrix testMatrix;
 	private final String id;
 	private final Resource resource;
 	private final Set<Action> actions;
@@ -20,11 +21,13 @@ public class Rule {
 	/**
 	 * 
 	 */
-	public Rule(final String id, final Resource resource, final Set<Action> actions, final Set<Subject> subjects) {
+	public Rule(final String id, final Resource resource, final Set<Action> actions, 
+			final Set<Subject> subjects, final TestMatrix testMatrix) {
 		this.id = id;
 		this.resource = resource;
 		this.actions = new HashSet<Action>(actions);
 		this.subjects = new HashSet<Subject>(subjects);
+		this.testMatrix = testMatrix;
 	}
 
 	public Resource getResource() {
@@ -54,5 +57,9 @@ public class Rule {
 	@Override
 	public String toString() {
 		return "Rule [id=" + id + ", resource=" + resource + ", actions=" + actions + ", subjects=" + subjects + "]";
+	}
+
+	public TestMatrix getTestMatrix() {
+		return testMatrix;
 	}
 }

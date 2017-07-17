@@ -13,19 +13,27 @@ import java.util.stream.Stream;
  *
  */
 public class User extends Subject {
+	private final String credential1;
+	private final String credential2;
 
 	private final Map<String,Group> groups;
 	/**
 	 * @param id
 	 * @param name
 	 */
-	public User(final String id, final String name, final Map<String,Group> groups) {
+	public User(final String id, final String name, final String credential1, final String credential2, final Map<String,Group> groups) {
 		super(id, name);
 		this.groups = new HashMap<String,Group>(groups);
+		this.credential1 = credential1;
+		this.credential2 = credential2;
 	}
 	
 	public Stream<Entry<String,Group>> groups() {
 		return groups.entrySet().stream();
+	}
+	
+	public boolean hasGroup(String groupId) {
+		return groups.containsKey(groupId);
 	}
 
 	@Override
@@ -51,6 +59,14 @@ public class User extends Subject {
 		} else if (!groups.equals(other.groups))
 			return false;
 		return true;
+	}
+
+	public String getCredential1() {
+		return credential1;
+	}
+
+	public String getCredential2() {
+		return credential2;
 	}
 
 }

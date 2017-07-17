@@ -61,7 +61,7 @@ public class TestGeneratorTest {
 			long numResources = tm.resources().count();
 			assertEquals("There should be one resource",1,numResources);
 			long numActions = tm.actions().count();
-			assertEquals("There should be one action",1,numActions);
+			assertEquals("There should be three actions",3,numActions);
 
 		} catch (TestGeneratorException e) {
 			e.printStackTrace();

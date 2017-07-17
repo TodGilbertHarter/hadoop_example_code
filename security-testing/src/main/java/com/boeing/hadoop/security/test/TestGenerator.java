@@ -33,9 +33,11 @@ import org.xml.sax.SAXException;
  */
 public class TestGenerator {
 	private final TestFactory testFactory;
+	private XPath xPath;
 	
 	public TestGenerator(TestFactory tf) {
 		this.testFactory = tf;
+		xPath = XPathFactory.newInstance().newXPath();
 	}
 
 	public Document parseTestDescription(File testDescription) throws TestGeneratorException {
@@ -49,7 +51,7 @@ public class TestGenerator {
 		}
 	}
 	
-	private Map<String,Subject> getSubjects(XPath xPath, Document testDescription) throws TestGeneratorException {
+	private Map<String,Subject> getSubjects(Document testDescription) throws TestGeneratorException {
 		try {
 			Map<String,Subject> result = new HashMap<String,Subject>();
 			String xpr = "/securitytest/subjects/groups/*";
@@ -71,6 +73,8 @@ public class TestGenerator {
 				NamedNodeMap nAttrs = n.getAttributes();
 				String id = nAttrs.getNamedItem("id").getNodeValue();
 				String name = nAttrs.getNamedItem("name").getNodeValue();
+				String credential1 = nAttrs.getNamedItem("credential1").getNodeValue();
+				String credential2 = nAttrs.getNamedItem("credential2").getNodeValue();
 				Map<String,Group> sGroups = new HashMap<String,Group>();
 				String gxpr = "/subjects/users/groups";
 				NodeList gnl = (NodeList) xPath.compile(gxpr).evaluate(testDescription, XPathConstants.NODESET);
@@ -83,7 +87,7 @@ public class TestGenerator {
 					}
 					sGroups.put(ref, g);
 				}
-				Subject s = new User(id,name,sGroups);
+				Subject s = new User(id,name,credential1,credential2,sGroups);
 				result.put(id, s);
 			}
 			
@@ -94,7 +98,7 @@ public class TestGenerator {
 		}
 	}
 	
-	private Map<String,Resource> getResources(XPath xPath, Document testDescription) throws TestGeneratorException {
+	private Map<String,Resource> getResources(Document testDescription) throws TestGeneratorException {
 		try {
 			Map<String,Resource> result = new HashMap<String,Resource>();
 			String xpr = "/securitytest/resources/*";
@@ -116,7 +120,7 @@ public class TestGenerator {
 		}
 	}
 	
-	private Map<String,Action> getActions(XPath xPath, Document testDescription) throws TestGeneratorException {
+	private Map<String,Action> getActions(Document testDescription) throws TestGeneratorException {
 		try {
 			Map<String,Action> result = new HashMap<String,Action>();
 			String xpr = "/securitytest/actions/*";
@@ -137,8 +141,7 @@ public class TestGenerator {
 		}
 	}
 	
-	private Map<String,Rule> getRules(XPath xPath, Document testDescription, Map<String,Subject> subjects,
-			Map<String,Resource> resources, Map<String,Action> actions) throws TestGeneratorException {
+	private Map<String,Rule> getRules(Document testDescription, TestMatrix testMatrix) throws TestGeneratorException {
 		try {
 			Map<String,Rule> result = new HashMap<String,Rule>();
 			String xpr = "/securitytest/rules/*";
@@ -160,7 +163,7 @@ public class TestGenerator {
 								Node sNode = cnl.item(j);
 								if(sNode.getNodeType() == Node.ELEMENT_NODE) {
 									String sRef = sNode.getAttributes().getNamedItem("subjectid").getNodeValue();
-									Subject s = subjects.get(sRef);
+									Subject s = testMatrix.getSubject(sRef);
 									ss.add(s);
 								}
 							}
@@ -169,15 +172,15 @@ public class TestGenerator {
 								Node aNode = cnl.item(j);
 								if(aNode.getNodeType() == Node.ELEMENT_NODE) {
 									String aRef = aNode.getAttributes().getNamedItem("ref").getNodeValue();
-									Action a = actions.get(aRef);
+									Action a = testMatrix.getAction(aRef);
 									as.add(a);
 								}
 							}
 						}
 					}
 				}
-				Resource resource = resources.get(resourceid);
-				Rule r = new Rule(id,resource,as,ss);
+				Resource resource = testMatrix.getResource(resourceid);
+				Rule r = new Rule(id,resource,as,ss,testMatrix);
 				result.put(id, r);
 			}
 			
@@ -196,7 +199,7 @@ public class TestGenerator {
 		File file = new File(fileName);
 		Document testDescription = parseTestDescription(file);
 		TestMatrix testMatrix = generateTestMatrix(testDescription);
-		List<Test> tests = generateTests(testMatrix);
+		List<Test> tests = generateTests(testMatrix,testDescription);
 		tests.stream().forEach((on) -> {
 			try {
 				on.runTest(endPoint);
@@ -207,16 +210,17 @@ public class TestGenerator {
 		});
 	}
 	
-	public List<Test> generateTests(TestMatrix matrix) {
-		return matrix.rules().collect(() -> new ArrayList<Test>(), (c,r) -> c.add(generateTest(r)), (c1,c2) -> c1.addAll(c2));
+	public List<Test> generateTests(TestMatrix matrix, Document testDescription) throws TestGeneratorException {
+		Map<String,Rule> rules = getRules(testDescription,matrix);
+		return rules.values().stream().collect(() -> new ArrayList<Test>(), (c,r) -> c.add(generateTest(r)), (c1,c2) -> c1.addAll(c2));
 	}
 	
 	public TestMatrix generateTestMatrix(Document testDescription) throws TestGeneratorException {
-		XPath xPath = XPathFactory.newInstance().newXPath();
-		Map<String,Subject> subjects = getSubjects(xPath,testDescription);
-		Map<String,Resource> resources = getResources(xPath,testDescription);
-		Map<String,Action> actions = getActions(xPath,testDescription);
-		Map<String,Rule> rules = getRules(xPath,testDescription,subjects,resources,actions);
-		return new TestMatrix(subjects,resources,actions,rules);
+		Map<String,Subject> subjects = getSubjects(testDescription);
+		Map<String,Resource> resources = getResources(testDescription);
+		Map<String,Action> actions = getActions(testDescription);
+		TestMatrix testMatrix =  new TestMatrix(subjects,resources,actions);
+//		return new TestMatrix(subjects,resources,actions,rules);
+		return testMatrix;
 	}
 }
