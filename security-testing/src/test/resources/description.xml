@@ -6,15 +6,21 @@
 			<group id='group-2' name='group2'/>
 		</groups>
 		<users>
-			<user id='user-1' name='user1' credential1='guest' credential2='guest-password'>
+			<user id='user-1' name='user1' credential1='user1' credential2='user1-password'>
 				<groups>
 					<group ref='group-1'/>
+				</groups>
+			</user>
+			<user id='user-2' name='user2' credential1='user2' credential2='user2-password'>
+				<groups>
+					<group ref='group-2'/>
 				</groups>
 			</user>
 		</users>
 	</subjects>
 	<resources>
 		<resource class='hdfsdir' id='hdfs-1' name='/user/guest'/>
+		<resource class='hdfsdir' id='hdfs-2' name='/example'/>
 	</resources>
 	<actions>
 		<action class='hdfsdir' name='read'/>
@@ -28,6 +34,15 @@
 			</subjects>
 			<actions>
 				<action ref='hdfsdir_read'/>
+			</actions>
+		</rule>
+		<rule id='rule-2' resourceid='hdfs-2'>
+			<subjects>
+				<subject subjectid='group-2'/>
+			</subjects>
+			<actions>
+				<action ref='hdfsdir_read'/>
+				<action ref='hdfsdir_write'/>
 			</actions>
 		</rule>
 	</rules>
