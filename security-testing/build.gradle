@@ -21,5 +21,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     
     compile 'org.apache.knox:gateway-shell:0.12.0'
+    compile 'org.apache.ranger:ranger-examples:0.+'
 }
 
