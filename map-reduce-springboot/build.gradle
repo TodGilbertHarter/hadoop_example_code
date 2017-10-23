@@ -1,12 +1,21 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.4.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    ext {
+        springVersion = '4.1.6.RELEASE'
+        springBootVersion = '1.5.2.RELEASE'
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE')
+        classpath('com.github.jengelman.gradle.plugins:shadow:1.2.4')
+    }
+    repositories {
+		maven { 
+	      credentials {
+	         username mavenUser
+	         password mavenPassword
+	      }
+	      url 'https://repo.web.boeing.com/artifactory/Maven-Releases/'
+	    }
 	}
 }
 
@@ -29,7 +38,13 @@ springBoot {
 }
 
 repositories {
-	mavenCentral()
+	maven { 
+      credentials {
+         username mavenUser
+         password mavenPassword
+      }
+      url 'https://repo.web.boeing.com/artifactory/Maven-Releases/'
+   }
 }
 
 sourceSets {

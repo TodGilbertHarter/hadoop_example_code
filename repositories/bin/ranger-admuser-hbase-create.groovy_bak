@@ -1,0 +1,36 @@
+
+package org.apache.hadoop.gateway.shell.hbase
+import org.apache.hadoop.gateway.shell.hbase.HBase
+import org.apache.hadoop.gateway.shell.Hadoop
+import static java.util.concurrent.TimeUnit.SECONDS
+
+try{
+
+session = Hadoop.login("https://sandbox.hortonworks.com:8443/gateway/knox_sample", "admuser", "admuser")
+}
+catch(Exception ex)
+{
+        print "error is from here"
+        println ex
+}
+
+try{
+
+	
+HBase.session(session).table("newdata").create()  \
+      .family("wheels")  \
+        .attribute("upstream", "aaaaaa")  \
+        .attribute("downstream", "bbbbbb")  \
+    .endFamilyDef()  \
+      .now()
+
+
+}
+catch (Exception ex)
+{
+
+        println "exception here"+ex.getMessage()
+}
+
+println "created a table into HBase"
+

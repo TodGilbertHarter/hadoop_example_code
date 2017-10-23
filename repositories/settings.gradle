@@ -5,7 +5,7 @@
  * In a single project build this file can be empty or even removed.
  *
  * Detailed information about configuring a multi-project build in Gradle can be found
- * in the user guide at https://docs.gradle.org/3.5/userguide/multi_project_builds.html
+ * in the user guide at https://docs.gradle.org/3.4-rc-2/userguide/multi_project_builds.html
  */
 
 pluginRepositories {
@@ -25,4 +25,5 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'map-reduce-springboot'
+rootProject.name = 'mapreduce-test'
+
