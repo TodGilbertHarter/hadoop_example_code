@@ -13,7 +13,7 @@ import org.springframework.data.hadoop.mapreduce.JobRunner;
 import org.springframework.data.hadoop.pig.PigRunner;
 
 import com.giantelectronicbrain.hadoop.Word;
-import com.giantelectronicbrain.hadoop.cascading.tez.TezFlow;
+//import com.giantelectronicbrain.hadoop.cascading.tez.TezFlow;
 import com.giantelectronicbrain.hadoop.hbase.HbaseWordRepository;
 
 /**
@@ -103,13 +103,14 @@ public class Driver {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		
-		try {
+
+// Boeing lacks a complete set of Cascading jars, so we can't do this here.
+/*		try {
 			LOG.info("Execute Cascading Tez job");
 			TezFlow.DoTezFlow(false);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} */
 	}
 
 	private static void dumpWordRepository(IWordRepository wordRepository) throws RepositoryException {

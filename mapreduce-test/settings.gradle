@@ -8,6 +8,16 @@
  * in the user guide at https://docs.gradle.org/3.4-rc-2/userguide/multi_project_builds.html
  */
 
+pluginRepositories {
+	maven { 
+      credentials {
+         username mavenUser
+         password mavenPassword
+      }
+      url 'https://repo.web.boeing.com/artifactory/Maven-Releases/'
+//      url 'https://sres.web.boeing.com/artifactory/Maven-JCentral-cache/'
+    }
+}
 /*
 // To declare projects as part of a multi-project build use the 'include' method
 include 'shared'
@@ -16,3 +26,4 @@ include 'services:webservice'
 */
 
 rootProject.name = 'mapreduce-test'
+

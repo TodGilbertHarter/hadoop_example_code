@@ -9,7 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.mahout.clustering.evaluation.ClusterEvaluator;
+//import org.apache.mahout.clustering.evaluation.ClusterEvaluator;
 import org.apache.mahout.math.Vector;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -25,7 +25,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class EvaluateCluster {
 	private static final Log LOG = LogFactory.getLog(EvaluateCluster.class);
 
-	private static ClusterEvaluator clusterEvaluator;
+//	private static ClusterEvaluator clusterEvaluator;
 	
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
@@ -37,11 +37,11 @@ public class EvaluateCluster {
 		LOG.info("Evaluating data from "+ecpath);
 		Path path = new Path(ecpath);
 
-		clusterEvaluator = new ClusterEvaluator(config,path);
+/*		clusterEvaluator = new ClusterEvaluator(config,path);
 		Double interClusterDensity = clusterEvaluator.interClusterDensity();
 		LOG.info("Inter-cluster density is "+interClusterDensity);
 		Map<Integer,Vector> vmap = clusterEvaluator.interClusterDistances();
-		LOG.info("VMAP "+vmap);
+		LOG.info("VMAP "+vmap); */
 //this part needs some work apparently
 //		Double intraClusterDensity = clusterEvaluator.intraClusterDensity();
 //		LOG.info("Intra-cluster average density is "+intraClusterDensity);
