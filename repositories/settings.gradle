@@ -25,5 +25,5 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'mapreduce-test'
+rootProject.name = 'repositories'
 
