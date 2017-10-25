@@ -131,7 +131,7 @@ dependencies {
 	compile 'mysql:mysql-connector-java:5.1.+' // useful for testing
 	// just a way of getting a copy of this jar
 	compile 'org.apache.tika:tika-app:1.14'
-
+	compile 'org.apache.knox:gateway-shell:0.10.0'
 }
 
 task copyToLib(type: Copy) {
